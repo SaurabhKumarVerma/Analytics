@@ -1,6 +1,8 @@
 import React from "react";
+import { GoogleLogin } from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
 import fbLogin from "../../axios/Facebook/facebookLogin";
+import gLogin from "../../axios/Google/googleLogin";
 
 export default function Login() {
 
@@ -11,6 +13,11 @@ export default function Login() {
         console.log(response);
     }
 
+    const responseGoogle = async (response) => {
+        gLogin(response.accessToken)
+        console.log(response);
+    }
+
     return(
         <>
             <FacebookLogin
@@ -18,6 +25,15 @@ export default function Login() {
                 fields="name,email,picture"
                 callback={responseFacebook}
             />
+            <br/>
+            <br/>
+            <GoogleLogin
+                clientId="757625228085-t51dvs052r5ke2nevsf74c1u4bu1355l.apps.googleusercontent.com"
+                buttonText="Login"
+                onSuccess={responseGoogle}
+                onFailure={responseGoogle}
+
+            />,
         </>
     )
 }

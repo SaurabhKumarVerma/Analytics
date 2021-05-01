@@ -103,7 +103,7 @@ REST_FRAMEWORK = {
 
 AUTHENTICATION_BACKENDS = (
     # Others auth providers (e.g. Google, OpenId, etc)
-
+    'social_core.backends.google.GoogleOAuth2',
 
     # Facebook OAuth2
     'social_core.backends.facebook.FacebookAppOAuth2',
@@ -126,6 +126,19 @@ SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
     'fields': 'id, name, email'
 }
+
+
+# Google configuration
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '757625228085-t51dvs052r5ke2nevsf74c1u4bu1355l.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'GaM_vt7NzAdBJoVncje-yYaw'
+
+# Define SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE to get extra permissions from Google.
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
+    'https://www.googleapis.com/auth/userinfo.email',
+    'https://www.googleapis.com/auth/userinfo.profile',
+]
+
+
 
 WSGI_APPLICATION = 'analytics.wsgi.application'
 
