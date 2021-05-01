@@ -26,8 +26,19 @@ SECRET_KEY = 'django-insecure-(a8$h=@!2-ngg0%%!_ociwzkfd2ts(ao9&#j2230k&*tyfmlj2
 DEBUG = True
 
 ALLOWED_HOSTS = []
+CORS_ALLOWED_ORIGINS = [
 
-
+    "http://localhost:8000",
+    "http://localhost:3000"
+]
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,10 +48,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework.authtoken',
     'api',
     'oauth2_provider',
     'social_django',
-    'rest_framework_social_oauth2',
+    'drf_social_oauth2',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +65,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'analytics.urls'
@@ -74,24 +90,27 @@ TEMPLATES = [
 ]
 
 REST_FRAMEWORK = {
-
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
 'DEFAULT_AUTHENTICATION_CLASSES': (
 
     # 'oauth2_provider.ext.rest_framework.OAuth2Authentication',  # django-oauth-toolkit < 1.0.0
     'oauth2_provider.contrib.rest_framework.OAuth2Authentication',  # django-oauth-toolkit >= 1.0.0
-    'rest_framework_social_oauth2.authentication.SocialAuthentication',
+    'drf_social_oauth2.authentication.SocialAuthentication',
 ),
 }
 
 AUTHENTICATION_BACKENDS = (
     # Others auth providers (e.g. Google, OpenId, etc)
 
+
     # Facebook OAuth2
     'social_core.backends.facebook.FacebookAppOAuth2',
     'social_core.backends.facebook.FacebookOAuth2',
 
-    # django-rest-framework-social-oauth2
-    'rest_framework_social_oauth2.backends.DjangoOAuth2',
+    # drf_social_oauth2
+    'drf_social_oauth2.backends.DjangoOAuth2',
 
     # Django
     'django.contrib.auth.backends.ModelBackend',
@@ -105,7 +124,7 @@ SOCIAL_AUTH_FACEBOOK_SECRET = '40d5f78474e0cf35668a139b4f6342c5'
 # Email is not sent by default, to get it, you must request the email permission.
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
-    'fields': 'id, name, email,picture'
+    'fields': 'id, name, email'
 }
 
 WSGI_APPLICATION = 'analytics.wsgi.application'

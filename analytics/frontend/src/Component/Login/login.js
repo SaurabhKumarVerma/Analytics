@@ -5,9 +5,10 @@ import fbLogin from "../../axios/Facebook/facebookLogin";
 export default function Login() {
 
 
-    const responseFacebook = (response) => {
+    const responseFacebook = async  (response) => {
+
+        fbLogin(response.accessToken)
         console.log(response);
-        fbLogin(response.accesstoken)
     }
 
     return(
