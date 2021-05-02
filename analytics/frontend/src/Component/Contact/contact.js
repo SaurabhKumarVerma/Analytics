@@ -1,7 +1,12 @@
 import React,{useState} from "react";
 import {useForm} from "react-hook-form";
 import 'bootstrap/dist/css/bootstrap.min.css'
+import ReCAPTCHA from "react-google-recaptcha";
+import secureAxios from '../../axios/Contact/contactAxios'
+import { ToastContainer, toast } from 'react-toastify';
 
+import 'react-toastify/dist/ReactToastify.css';
+import { Zoom } from 'react-toastify';
 export default function Contact () {
     const { register, handleSubmit, getValues, formState: { errors } } = useForm();
     const [statecontact, setStatecontact] = useState({
@@ -19,6 +24,43 @@ export default function Contact () {
 
     const onSubmit = async (data)=>{
         console.log(data)
+        await secureAxios.post('contact/',data)
+            .then(res =>{
+                console.log(res.data)
+                localStorage.setItem('error', res.data.error)
+                if (res.data.error === localStorage.getItem('error')) {
+                    toast.error(localStorage.getItem('error'), {
+                        position: "top-center",
+                        autoClose: 5000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+
+                    });
+                }
+                else {
+                    toast.success('Saved Successfully', {
+                        position: "top-center",
+                        autoClose: 5000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+
+
+                    });
+                }
+            })
+            .catch(error =>{
+                 console.log(error.data)
+            })
+    }
+
+    function onChange(value) {
+        console.log("Captcha value:", value);
     }
 
 
@@ -59,13 +101,24 @@ return(
 
                     {errors.message && <span style={{ color: 'red' }}>This field is required</span>}
                     <br />
-
+                    <ReCAPTCHA
+                        sitekey='6LdohMIaAAAAABXaYYLvBGwlheXUMF8KnAkN3jP5'
+                        size='visible'
+                        onChange={onChange}
+                    />
+                    <br />
                     <div >
                         <button className="form-control btn btn-primary btn-lg" id='btn' type='submit' >Register</button>
                     </div>
                 </form>
             </div>
         </center>
+
+            <ToastContainer
+                transition={Zoom}
+                limit='1'
+            />
+
         </>
 
     )

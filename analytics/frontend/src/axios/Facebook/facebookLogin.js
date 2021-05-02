@@ -7,13 +7,13 @@ const fbLogin = (accesstoken) =>{
          token: accesstoken,
         backend: 'facebook',
         grant_type: 'convert_token',
-        client_id: 'MbN5X5Hrwwkc7zypy7m3s6EiifGnMNDXmj1pBu4d',
-        client_secret: 'qyZKmynJyIrKrInHcbvPxjiCLZUanhHhsDlj1WvEeTCb9cRhpvoiox82zpAvFmNPijdckCN00IQfqrMxKAxrIP1nVPyunJR9Uu8qch6c9hukrTZs3AkF1zap6N5nSFQx',
+        client_id: 'nXy8fwSny65o4BMU0CkwVOuZgKtikihREUwLCUYA',
+        client_secret: 'aN48sugGZfXGC0SWG6NJssemfQpYqW6V3FAkBFXioZWf86TjtRThHCyr5S5MLYzg3p7f0PCQCzdcZSxa6Y4wGJk5xO1V9XVesTJra2nzwAXU5I790tfaPhiCUq3WBQbz',
     })
         .then((res) =>{
             // localStorage.setItem('access_token', res.data.access_token)
             // localStorage.setItem('refresh_token',res.data.refresh_token)
-
+            console.log(res.data, 'Response From Backend Facebook')
         })
 
 }
