@@ -1,8 +1,5 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
-import secureAxios from "../../axios/Contact/contactAxios";
-import axios from 'axios'
-import {get} from "react-hook-form";
 const data = {
 
     labels: ['1', '2', '3', '4', '5', '6'],

@@ -29,20 +29,18 @@ def all(request):
 
 @csrf_exempt
 @api_view(['POST'])
-def ContactForm(request):
-
-    serialized = ContactSerializer(data=request.data)
-
-    if serialized.is_valid():
-        serialized.save()
-    else:
-        return Response({'error': serialized.errors})
-
-    result = Contact.objects.all()
-    ContactSerializer(result,many=True)
+def contact_me(request):
+    if request.method == 'POST':
+        serialized = ContactSerializer(data=request.data)
+        if serialized.is_valid():
+            serialized.save()
+        else:
+            return Response({'error':serialized.errors})
+        result = Contact.objects.all()
+        ContactSerializer(result,many=True)
 
     return Response({
-        "Contact":"Shortly We Will touch with you "
+        "Created":"We Will Contact You"
     })
 
 
