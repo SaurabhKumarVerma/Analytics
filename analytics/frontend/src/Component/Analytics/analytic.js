@@ -57,7 +57,7 @@ export default function Analytic (){
             data:getCount,
             fill: false,
             backgroundColor: "rgb(0, 74, 94)",
-            borderColor: "rgba(	0, 135, 170, 0.2)",
+            borderColor: "rgba(	75, 192, 192)",
         }]
     }
     const options = {
@@ -76,22 +76,6 @@ export default function Analytic (){
         }
     }
 
-    const LineChart = () => (
-        <>
-            <div className='header'>
-                <h1 className='title'>Line Chart</h1>
-                <div className='links'>
-                    <a
-                        className='btn btn-gh'
-                        href='https://github.com/reactchartjs/react-chartjs-2/blob/master/example/src/charts/Line.js'
-                    >
-                        Github Source
-                    </a>
-                </div>
-            </div>
-            <Line data={data} options={options} />
-        </>
-    );
 
 
     return(
